@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quer sair comigo? ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .container {
+      background: white;
+      padding: 35px 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 420px;
+    }
+
+    h1, h2 {
+      color: #ff477e;
+    }
+
+    .botoes {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+      min-height: 55px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 25px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #sim {
+      background: #2a9d8f;
+      color: white;
+    }
+
+    #nao {
+      background: #e63946;
+      color: white;
+    }
+
+    #agendamento {
+      display: none;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0 20px;
+      border: 1px solid #ffb3c6;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    #confirmar {
+      background: #ff477e;
+      color: white;
+      width: 100%;
+    }
+
+    #mensagem {
+      color: #2a9d8f;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div id="convite">
+      <h1>Quer sair comigo? 🐻❤️</h1>
+
+      <div class="botoes">
+        <button id="sim" onclick="aceitou()">
+          SIM! ❤️
+        </button>
+
+        <button id="nao"
+          onmouseover="fuga()"
+          onclick="fuga()"
+          ontouchstart="fuga()">
+          NÃO
+        </button>
+      </div>
+    </div>
+
+    <div id="agendamento">
+      <h2>Sabia que você ia aceitar! 🥰❤️</h2>
+
+      <p>Agora escolha um dia e horário para nosso encontro!</p>
+
+      <label for="data">📅 Escolha o dia:</label>
+      <input type="date" id="data" required>
+
+      <label for="hora">🕒 Escolha o horário:</label>
+      <input type="time" id="hora" required>
+
+      <button id="confirmar" onclick="confirmar()">
+        Confirmar encontro ❤️
+      </button>
+
+      <p id="mensagem"></p>
+    </div>
+
+  </div>
+
+  <script>
+    const numeroWhatsApp = "5511988988758";
+
+    function fuga() {
+      const botao = document.getElementById("nao");
+
+      const largura = window.innerWidth;
+      const altura = window.innerHeight;
+
+      const x = Math.random() *
+        Math.max(0, largura - botao.offsetWidth - 20);
+
+      const y = Math.random() *
+        Math.max(0, altura - botao.offsetHeight - 20);
+
+      botao.style.position = "fixed";
+      botao.style.left = x + "px";
+      botao.style.top = y + "px";
+      botao.style.zIndex = "10";
+    }
+
+    function aceitou() {
+      document.getElementById("convite").style.display = "none";
+      document.getElementById("agendamento").style.display = "block";
+
+      const hoje = new Date();
+      const ano = hoje.getFullYear();
+      const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+      const dia = String(hoje.getDate()).padStart(2, "0");
+
+      document.getElementById("data").min =
+        `${ano}-${mes}-${dia}`;
+    }
+
+    function confirmar() {
+      const data = document.getElementById("data").value;
+      const hora = document.getElementById("hora").value;
+
+      if (!data || !hora) {
+        alert("Escolha o dia e o horário! ❤️");
+        return;
+      }
+
+      const [ano, mes, dia] = data.split("-");
+      const dataFormatada = `${dia}/${mes}/${ano}`;
+
+      const mensagem =
+        `Oi! ❤️ Aceitei seu convite! 🥰\n\n` +
+        `📅 Dia: ${dataFormatada}\n` +
+        `🕒 Horário: ${hora}\n\n` +
+        `Nosso encontro está combinado! ❤️🐻`;
+
+      const link =
+        `https://wa.me/${numeroWhatsApp}?text=` +
+        encodeURIComponent(mensagem);
+
+      document.getElementById("mensagem").textContent =
+        "Abrindo o WhatsApp para enviar sua resposta! ❤️";
+
+      window.location.href = link;
+    }
+  </script>
+</body>
+</html>
